@@ -1,6 +1,8 @@
 import {API} from "./data.js"
 import {list, editList, name, location, cost, description} from "./components.js"
 
+
+
 export const Dom = {
     addInterests()
     {
@@ -8,19 +10,23 @@ export const Dom = {
         listContainer.innerHTML = ""
         API.getData("interests").then(interests =>
         {
-            console.log(interests)
             interests.forEach(interest =>
             {
-                console.log(interest)
                 let interestContainer = document.createElement("div")
                 interestContainer.setAttribute("id", `interest-item-${interest.id}`)
                 if (!(interest.review))
                 {
                     interest.review = "(Please add a review . . .)"
                 }
-                interestContainer.innerHTML = list(interest)
-                listContainer.appendChild(interestContainer)
-                this.addEvents(interest)
+                console.log(interest)
+                API.getPlace(interest.placeId)
+                .then(place =>
+                {
+                    interest.location = place[0].name
+                    interestContainer.innerHTML = list(interest)
+                    listContainer.appendChild(interestContainer)
+                    this.addEvents(interest)
+                })
             });
         })
     },
@@ -35,22 +41,36 @@ export const Dom = {
             console.log("IFFFFFFFFFFFFFF")
             editReview = ""
         }
-        interestContainer.innerHTML = editList(interest)
-        document.querySelector(`#edit-cost-${interest.id}`).value = editCost
-        document.querySelector(`#edit-review-${interest.id}`).value = editReview
-        this.saveEvent(interest)
+        console.log(interest)
+        API.getPlace(interest.placeId)
+        .then(place =>
+        {
+            console.log(place)
+            interest.location = place[0].name
+            console.log(interest)
+            interestContainer.innerHTML = editList(interest)
+            console.log(edit)
+            document.querySelector(`#edit-cost-${interest.id}`).value = editCost
+            document.querySelector(`#edit-review-${interest.id}`).value = editReview
+            this.saveEvent(interest)
+        })
     },
 
     newInterest()
     {
-        const newItem = {
-            name: name.value,
-            placeId: +location.value,
-            cost: cost.value,
-            description: description.value
-        }
-        API.postInterest(newItem)
-        .then(() => this.addInterests())
+        console.log(typeof +location.value)
+        API.getPlace(+location.value)
+        .then(place =>
+        {
+            const newItem = {
+                name: name.value,
+                placeId: +location.value,
+                cost: cost.value,
+                description: description.value
+            }
+            API.postInterest(newItem)
+            .then(() => this.addInterests())
+        })
     },
 
     addEvents(interest)
@@ -70,6 +90,28 @@ export const Dom = {
         })
     },
 
+    // generatePlaces()
+    // {
+    //     let placeArray = []
+    //     let dropdown = `<label for="location">Location Please:</label><select>`
+    //     const dropDiv = document.querySelector("#dropdown-here")
+    //     API.getPlaces()
+    //     .then(places =>
+    //     {
+    //         console.log("hello")
+    //         places.forEach(place =>
+    //         {
+    //             placeArray.push(place.name)
+    //         })
+    //         placeArray.forEach((name, i) =>
+    //         {
+    //             dropdown += `<option value=${i++}>${name}</option>`
+    //         })
+    //         dropdown += `</select>`
+    //         dropDiv.innerHTML = dropdown
+    //     })
+    // },
+
     saveEvent(interest)
     {
         document.querySelector(`#confirm-${interest.id}`).addEventListener("click", () =>
@@ -78,7 +120,7 @@ export const Dom = {
             let reviewValue = document.querySelector(`#edit-review-${interest.id}`).value
             const changedItem = {
                 name: interest.name,
-                placeId: interest.location,
+                placeId: interest.placeId,
                 cost: interest.cost,
                 description: interest.description,
                 cost: costValue,

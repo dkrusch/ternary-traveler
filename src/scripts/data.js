@@ -4,6 +4,12 @@ export const API = {
         .then(data => data.json())
     },
 
+    getPlace(id) {
+        console.log(id)
+        return fetch(`http://localhost:8088/places?id=${id}`)
+        .then(data => data.json())
+    },
+
     editInterest(interest, id) {
         console.log(interest)
             return fetch(`http://localhost:8088/interests/${id}`, {
