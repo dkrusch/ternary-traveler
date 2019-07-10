@@ -6,13 +6,30 @@ export const cost = document.querySelector("#cost")
 
 export const list = interest => {
     return `
-        <h2 id="list-location-${interest.placeId}">Location: ${interest.placeId}</h2>
+        <h2 id="list-location-${interest.id}">Location: ${interest.placeId}</h2>
         <h1 id="list-name">Name: ${interest.name}</h1>
         <h3 id="list-description">Description: ${interest.description}</h3>
-        <h3 id="list-cost">Cost: ${interest.cost}</h3>
-        <p id="list-review">Review: ${interest.review}</p>
+        <label for="list-cost-${interest.id}">Cost: </label>
+        <h3 id="list-cost-${interest.id}">${interest.cost}</h3>
+        <label for="list-review-${interest.id}">Review: </label>
+        <p id="list-review-${interest.id}">${interest.review}</p>
         <button id="edit-${interest.id}">Edit Interest</button>
         <button id="delete-${interest.id}">Delete Interest</button>
+        <hr>
+    `
+}
+
+
+export const editList = (interest) => {
+    return `
+        <h2 id="list-location-${interest.id}">Location: ${interest.placeId}</h2>
+        <h1 id="list-name">Name: ${interest.name}</h1>
+        <h3 id="list-description">Description: ${interest.description}</h3>
+        <label for="edit-cost-${interest.id}">Cost:</label>
+        <input id="edit-cost-${interest.id}" type="text" placeholder="Cost please">
+        <label for="edit-review-${interest.id}">Review:</label>
+        <input id="edit-review-${interest.id}" style="min-width: 200px" type="text" placeholder="Review please">
+        <button id="confirm-${interest.id}">Save Edit</button>
         <hr>
     `
 }

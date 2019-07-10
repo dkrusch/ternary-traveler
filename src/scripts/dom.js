@@ -1,5 +1,5 @@
 import {API} from "./data.js"
-import {list, name, location, cost, description} from "./components.js"
+import {list, editList, name, location, cost, description} from "./components.js"
 
 export const Dom = {
     addInterests()
@@ -14,11 +14,32 @@ export const Dom = {
                 console.log(interest)
                 let interestContainer = document.createElement("div")
                 interestContainer.setAttribute("id", `interest-item-${interest.id}`)
+                if (!(interest.review))
+                {
+                    interest.review = "(Please add a review . . .)"
+                }
                 interestContainer.innerHTML = list(interest)
                 listContainer.appendChild(interestContainer)
                 this.addEvents(interest)
             });
         })
+    },
+
+    addEditComp(interest)
+    {
+        console.log(interest.id)
+        let interestContainer = document.querySelector(`#interest-item-${interest.id}`)
+        console.log("thing", interestContainer)
+        let editCost = document.querySelector(`#list-cost-${interest.id}`).textContent
+        let editReview = document.querySelector(`#list-review-${interest.id}`).textContent
+        if (editReview === null || "(Please add a review . . .)")
+        {
+            editReview = ""
+        }
+        interestContainer.innerHTML = editList(interest)
+        document.querySelector(`#edit-cost-${interest.id}`).value = editCost
+        document.querySelector(`#edit-review-${interest.id}`).value = editReview
+
     },
 
     newInterest()
@@ -36,11 +57,11 @@ export const Dom = {
 
     addEvents(interest)
     {
-        console.log(interest.id)
         document.querySelector(`#edit-${interest.id}`).addEventListener("click", () =>
         {
-            API.editInterest(interest, interest.id)
-            .then(() => this.addInterests())
+            this.addEditComp(interest)
+            // API.editInterest(interest, interest.id)
+            // .then(() => this.addInterests())
         })
         document.querySelector(`#delete-${interest.id}`).addEventListener("click", () =>
         {
@@ -48,7 +69,7 @@ export const Dom = {
                 API.deleteInterest(interest.id)
                 .then(() => this.addInterests())
             } else {
-                // Do nothing!
+                // Delete nothing
             }
         })
     },
