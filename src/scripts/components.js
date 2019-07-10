@@ -10,7 +10,8 @@ export const list = interest => {
         <h1 id="list-name">Name: ${interest.name}</h1>
         <h3 id="list-description">Description: ${interest.description}</h3>
         <label for="list-cost-${interest.id}">Cost: </label>
-        <h3 id="list-cost-${interest.id}">${interest.cost}</h3>
+
+        <h3 id="list-cost-${interest.id}"><span>$</span>${interest.cost}</h3>
         <label for="list-review-${interest.id}">Review: </label>
         <p id="list-review-${interest.id}">${interest.review}</p>
         <button id="edit-${interest.id}">Edit Interest</button>
@@ -26,7 +27,8 @@ export const editList = (interest) => {
         <h1 id="list-name">Name: ${interest.name}</h1>
         <h3 id="list-description">Description: ${interest.description}</h3>
         <label for="edit-cost-${interest.id}">Cost:</label>
-        <input id="edit-cost-${interest.id}" type="text" placeholder="Cost please">
+        <span>$</span>
+        <input type="number" id="edit-cost-${interest.id}" placeholder="Cost please"min="0.01" step="0.01" max="10000" value="25.67">
         <label for="edit-review-${interest.id}">Review:</label>
         <input id="edit-review-${interest.id}" style="min-width: 200px" type="text" placeholder="Review please">
         <button id="confirm-${interest.id}">Save Edit</button>

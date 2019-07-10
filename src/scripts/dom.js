@@ -27,19 +27,18 @@ export const Dom = {
 
     addEditComp(interest)
     {
-        console.log(interest.id)
         let interestContainer = document.querySelector(`#interest-item-${interest.id}`)
-        console.log("thing", interestContainer)
         let editCost = document.querySelector(`#list-cost-${interest.id}`).textContent
         let editReview = document.querySelector(`#list-review-${interest.id}`).textContent
-        if (editReview === null || "(Please add a review . . .)")
+        if (editReview === null || editReview === "(Please add a review . . .)")
         {
+            console.log("IFFFFFFFFFFFFFF")
             editReview = ""
         }
         interestContainer.innerHTML = editList(interest)
         document.querySelector(`#edit-cost-${interest.id}`).value = editCost
         document.querySelector(`#edit-review-${interest.id}`).value = editReview
-
+        this.saveEvent(interest)
     },
 
     newInterest()
@@ -50,7 +49,6 @@ export const Dom = {
             cost: cost.value,
             description: description.value
         }
-        console.log(newItem)
         API.postInterest(newItem)
         .then(() => this.addInterests())
     },
@@ -60,8 +58,6 @@ export const Dom = {
         document.querySelector(`#edit-${interest.id}`).addEventListener("click", () =>
         {
             this.addEditComp(interest)
-            // API.editInterest(interest, interest.id)
-            // .then(() => this.addInterests())
         })
         document.querySelector(`#delete-${interest.id}`).addEventListener("click", () =>
         {
@@ -71,6 +67,26 @@ export const Dom = {
             } else {
                 // Delete nothing
             }
+        })
+    },
+
+    saveEvent(interest)
+    {
+        document.querySelector(`#confirm-${interest.id}`).addEventListener("click", () =>
+        {
+            let costValue = document.querySelector(`#edit-cost-${interest.id}`).value
+            let reviewValue = document.querySelector(`#edit-review-${interest.id}`).value
+            const changedItem = {
+                name: interest.name,
+                placeId: interest.location,
+                cost: interest.cost,
+                description: interest.description,
+                cost: costValue,
+                review: reviewValue
+            }
+            console.log("saveSAVE")
+            API.editInterest(changedItem, interest.id)
+            .then(() => this.addInterests())
         })
     },
 

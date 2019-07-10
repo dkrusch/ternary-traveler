@@ -4,7 +4,8 @@ export const API = {
         .then(data => data.json())
     },
 
-    editInterest(id, interest) {
+    editInterest(interest, id) {
+        console.log(interest)
             return fetch(`http://localhost:8088/interests/${id}`, {
               method: "PUT",
               headers: {
