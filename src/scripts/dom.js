@@ -38,18 +38,14 @@ export const Dom = {
         let editReview = document.querySelector(`#list-review-${interest.id}`).textContent
         if (editReview === null || editReview === "(Please add a review . . .)")
         {
-            console.log("IFFFFFFFFFFFFFF")
             editReview = ""
         }
-        console.log(interest)
         API.getPlace(interest.placeId)
         .then(place =>
         {
-            console.log(place)
             interest.location = place[0].name
-            console.log(interest)
             interestContainer.innerHTML = editList(interest)
-            console.log(edit)
+            editCost = editCost.replace("$", "")
             document.querySelector(`#edit-cost-${interest.id}`).value = editCost
             document.querySelector(`#edit-review-${interest.id}`).value = editReview
             this.saveEvent(interest)
@@ -70,6 +66,12 @@ export const Dom = {
             }
             API.postInterest(newItem)
             .then(() => this.addInterests())
+
+            // Reset the form values once the new item has been posted
+            name.value = ""
+            cost.value = ""
+            location.value = 1
+            description.value = ""
         })
     },
 
