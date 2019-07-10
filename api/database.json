@@ -16,5 +16,37 @@
       "visa_required": false
     }
   ],
-  "interests": []
+  "interests": [
+    {
+      "id": 2,
+      "placeId": 1,
+      "name": "Local Market",
+      "description": "Local market where you can purchase local products and try the local food",
+      "cost": 0,
+      "review": "You can definitely get things for a lower price if you are willing to bargain!"
+    },
+    {
+      "id": 3,
+      "placeId": 1,
+      "name": "Local Market",
+      "description": "Local market where you can purchase local products and try the local food",
+      "cost": 0,
+      "review": "You can definitely get things for a lower price if you are willing to bargain!"
+    },
+    {
+      "id": 4,
+      "placeId": 1,
+      "name": "Local Market",
+      "description": "Local market where you can purchase local products and try the local food",
+      "cost": 0,
+      "review": "You can definitely get things for a lower price if you are willing to bargain!"
+    },
+    {
+      "name": "awoiejfaoiwejfoaweijf",
+      "placeId": 1,
+      "cost": "aoeijgaeg",
+      "description": "aoeiwjfaoweijf",
+      "id": 5
+    }
+  ]
 }
