@@ -10,7 +10,27 @@
 </head>
 
 <body>
-  <article id="container"></article>
+  <article id="container">
+    <div id="form-container">
+        <fieldset>
+          <legend>Create a new interest:</legend>
+          <label for="location">Location Please:</label>
+          <select id="location">
+              <option value="1">Italy</option>
+              <option value="2">Switzerland</option>
+              <option value="3">France</option>
+          </select>
+          <label for="name">Name:</label>
+          <input id="name" type="text" placeholder="Name please">
+          <label for="description">Description:</label>
+          <input id="description" type="text" placeholder="Description please">
+          <label for="cost">Cost:</label>
+          <input id="description" type="text" placeholder="Cost please">
+          <button id="create-interest" type="submit">Submit Interest</button>
+        </fieldset>
+    </div>
+  </article>
 </body>
-
 </html>
+
+

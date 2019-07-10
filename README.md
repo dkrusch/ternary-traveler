@@ -30,6 +30,7 @@ To start you off, here's what the resources in your API should look like for thi
   ],
   "interests": []
 }```
+```
 
 ### Interests
 
